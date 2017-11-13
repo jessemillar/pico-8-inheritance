@@ -2,26 +2,40 @@ pico-8 cartridge // http://www.pico-8.com
 version 11
 __lua__
 
-function copy(o, props)
+function new(o, props)
+	local n=copy(o)
+
+	if props then
+		merge(n,props)
+	end
+
+	return n
+end
+
+function copy(o)
 	local c
 
-	if type(o) == 'table' then
+	-- copy the supplied entity
+	if type(o) == "table" then
 		c = {}
 
 		for k, v in pairs(o) do
 			c[k] = copy(v)
 		end
 	else
+		-- handle single variable copies
 		c = o
 	end
 
-	if props then
-		for k,v in pairs(props) do
-			c[k] = v
-		end
-	end
-
 	return c
+end
+
+function merge(t1, t2)
+    for i=1,#t2 do
+        t1[#t1+1] = t2[i]
+    end
+
+    return t1
 end
 
 function _draw()
@@ -47,7 +61,14 @@ function _init()
 
 	printh("c: "..c.x.." "..c.y.." "..c.z)
 
+	c:add({x = 2, y = 2})
+	printh("c: "..c.x.." "..c.y.." "..c.z)
+
 	c:printz()
+
+	printh("a: "..a.x.." "..a.y)
+	printh("b: "..b.x.." "..b.y)
+	printh("c: "..c.x.." "..c.y.." "..c.z)
 end
 
 function _update()
@@ -73,7 +94,7 @@ function vec:mult(c)
 	self.y *= c
 end
 
-vec3 = copy(vec, {
+vec3 = new(vec, {
 	z = 0,
 })
 

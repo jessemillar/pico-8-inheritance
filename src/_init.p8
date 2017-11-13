@@ -17,5 +17,12 @@ function _init()
 
 	printh("c: "..c.x.." "..c.y.." "..c.z)
 
+	c:add({x = 2, y = 2})
+	printh("c: "..c.x.." "..c.y.." "..c.z)
+
 	c:printz()
+
+	printh("a: "..a.x.." "..a.y)
+	printh("b: "..b.x.." "..b.y)
+	printh("c: "..c.x.." "..c.y.." "..c.z)
 end

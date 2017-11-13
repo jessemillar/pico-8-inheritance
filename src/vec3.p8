@@ -1,4 +1,4 @@
-vec3 = copy(vec, {
+vec3 = new(vec, {
 	z = 0,
 })
 
