@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 11
 __lua__
 
-function copy(o)
+function copy(o, props)
 	local c
 
 	if type(o) == 'table' then
@@ -13,6 +13,12 @@ function copy(o)
 		end
 	else
 		c = o
+	end
+
+	if props then
+		for k,v in pairs(props) do
+			c[k] = v
+		end
 	end
 
 	return c
@@ -47,9 +53,10 @@ end
 function _update()
 end
 
-vec = {}
-vec.x = 0
-vec.y = 0
+vec = {
+	x = 0,
+	y = 0,
+}
 
 function vec:add(v)
 	self.x += v.x
@@ -66,8 +73,9 @@ function vec:mult(c)
 	self.y *= c
 end
 
-vec3 = copy(vec)
-vec3.z = 0
+vec3 = copy(vec, {
+	z = 0,
+})
 
 function vec3:printz()
 	printh("z: "..self.z)

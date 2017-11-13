@@ -1,6 +1,7 @@
-vec = {}
-vec.x = 0
-vec.y = 0
+vec = {
+	x = 0,
+	y = 0,
+}
 
 function vec:add(v)
 	self.x += v.x

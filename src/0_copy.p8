@@ -1,4 +1,4 @@
-function copy(o)
+function copy(o, props)
 	local c
 
 	if type(o) == 'table' then
@@ -9,6 +9,12 @@ function copy(o)
 		end
 	else
 		c = o
+	end
+
+	if props then
+		for k,v in pairs(props) do
+			c[k] = v
+		end
 	end
 
 	return c
