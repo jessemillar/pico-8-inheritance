@@ -9,8 +9,13 @@ function _init()
 	printh("a: "..a.x.." "..a.y)
 	printh("b: "..b.x.." "..b.y)
 
+	a:add({x = 3, y = 3})
+	printh("a: "..a.x.." "..a.y)
+
 	c = copy(vec3)
 	c.z=3
 
 	printh("c: "..c.x.." "..c.y.." "..c.z)
+
+	c:printz()
 end
