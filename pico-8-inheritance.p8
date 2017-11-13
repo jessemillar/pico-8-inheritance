@@ -2,16 +2,6 @@ pico-8 cartridge // http://www.pico-8.com
 version 11
 __lua__
 
-function new(o, props)
-	local n=copy(o)
-
-	if props then
-		merge(n,props)
-	end
-
-	return n
-end
-
 function copy(o)
 	local c
 
@@ -28,14 +18,6 @@ function copy(o)
 	end
 
 	return c
-end
-
-function merge(t1, t2)
-    for i=1,#t2 do
-        t1[#t1+1] = t2[i]
-    end
-
-    return t1
 end
 
 function _draw()
@@ -69,6 +51,14 @@ function _init()
 	printh("a: "..a.x.." "..a.y)
 	printh("b: "..b.x.." "..b.y)
 	printh("c: "..c.x.." "..c.y.." "..c.z)
+
+	c:printtest()
+
+	d = copy(vec4)
+	d.t=3
+	d:printt()
+	d:printtest()
+	d:printtest2()
 end
 
 function _update()
@@ -94,12 +84,30 @@ function vec:mult(c)
 	self.y *= c
 end
 
-vec3 = new(vec, {
-	z = 0,
-})
+vec3 = copy(vec)
+
+vec3.z = 0
+vec3.test = {a = 1, b = 2, c = 3}
 
 function vec3:printz()
 	printh("z: "..self.z)
+end
+
+function vec3:printtest()
+	printh("vec3:printtest(): "..self.test.a.." "..self.test.b.." "..self.test.c)
+end
+
+vec4 = copy(vec3)
+
+vec4.t = 0
+vec4.test2 = {a = 4, b = 5, c = 6}
+
+function vec4:printt()
+	printh("t: "..self.t)
+end
+
+function vec4:printtest2()
+	printh("vec4:printtest2(): "..self.test2.a.." "..self.test2.b.." "..self.test2.c)
 end
 
 __gfx__

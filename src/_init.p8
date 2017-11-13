@@ -25,4 +25,12 @@ function _init()
 	printh("a: "..a.x.." "..a.y)
 	printh("b: "..b.x.." "..b.y)
 	printh("c: "..c.x.." "..c.y.." "..c.z)
+
+	c:printtest()
+
+	d = copy(vec4)
+	d.t=3
+	d:printt()
+	d:printtest()
+	d:printtest2()
 end
