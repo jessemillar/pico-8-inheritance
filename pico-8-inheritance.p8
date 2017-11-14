@@ -2,6 +2,14 @@ pico-8 cartridge // http://www.pico-8.com
 version 11
 __lua__
 
+function kind(parent, child)
+	local k = copy(parent)
+
+	merge(k, child)
+
+	return k
+end
+
 function copy(o)
 	local c
 
@@ -18,6 +26,20 @@ function copy(o)
 	end
 
 	return c
+end
+
+function merge(t1, t2)
+	for k,v in pairs(t2) do
+		if type(v) == "table" then
+			if type(t1[k] or false) == "table" then
+				merge(t1[k] or {}, t2[k] or {})
+			else
+				t1[k] = v
+			end
+		else
+			t1[k] = v
+		end
+	end
 end
 
 vec = {
@@ -40,10 +62,10 @@ function vec:mult(c)
 	self.y *= c
 end
 
-vec3 = copy(vec)
-
-vec3.z = 0
-vec3.test = {a = 1, b = 2, c = 3}
+vec3 = kind(vec, {
+	z = 0,
+	test = {a = 1, b = 2, c = 3},
+})
 
 function vec3:printz()
 	printh("z: "..self.z)
@@ -53,10 +75,10 @@ function vec3:printtest()
 	printh("vec3:printtest(): "..self.test.a.." "..self.test.b.." "..self.test.c)
 end
 
-vec4 = copy(vec3)
-
-vec4.t = 0
-vec4.test2 = {a = 4, b = 5, c = 6}
+vec4 = kind(vec3, {
+	t = 0,
+	test2 = {a = 4, b = 5, c = 6},
+})
 
 function vec4:printt()
 	printh("t: "..self.t)

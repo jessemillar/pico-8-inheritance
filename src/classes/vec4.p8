@@ -1,7 +1,7 @@
-vec4 = copy(vec3)
-
-vec4.t = 0
-vec4.test2 = {a = 4, b = 5, c = 6}
+vec4 = kind(vec3, {
+	t = 0,
+	test2 = {a = 4, b = 5, c = 6},
+})
 
 function vec4:printt()
 	printh("t: "..self.t)
