@@ -3,6 +3,8 @@ version 11
 __lua__
 
 function kind(parent, child)
+	printh("kind()")
+
 	local k = copy(parent)
 
 	merge(k, child)
@@ -11,6 +13,8 @@ function kind(parent, child)
 end
 
 function copy(o)
+	printh("copy() "..type(o))
+
 	local c
 
 	-- copy the supplied entity
@@ -29,6 +33,8 @@ function copy(o)
 end
 
 function merge(t1, t2)
+	printh("merge()")
+
 	for k,v in pairs(t2) do
 		if type(v) == "table" then
 			if type(t1[k] or false) == "table" then
@@ -42,10 +48,10 @@ function merge(t1, t2)
 	end
 end
 
-vec = {
+vec = kind(nil, {
 	x = 0,
 	y = 0,
-}
+})
 
 function vec:add(v)
 	self.x += v.x
